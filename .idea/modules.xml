@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/back_end.iml" filepath="$PROJECT_DIR$/back_end.iml" />
       <module fileurl="file://$PROJECT_DIR$/../dataintimate_intenship_task.iml" filepath="$PROJECT_DIR$/../dataintimate_intenship_task.iml" />
+      <module fileurl="file://$PROJECT_DIR$/front_end.iml" filepath="$PROJECT_DIR$/front_end.iml" />
     </modules>
   </component>
 </project>
