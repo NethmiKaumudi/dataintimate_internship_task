@@ -5,8 +5,8 @@ const dbConnection = require('../db/dbConnection');
 // Get all employees
 router.get('/get', async (req, res) => {
     try {
-        const connection = await dbConnection(); // Assuming dbConnection returns a promise resolving to a database connection
-        const [rows, fields] = await connection.query('SELECT * FROM employees');
+        const connection = await dbConnection; // Assuming dbConnection returns a promise resolving to a database connection
+        const [rows, fields] = await connection.promise().query('SELECT * FROM employees');
         res.json(rows);
     } catch (error) {
         console.error('Error fetching employees:', error);
@@ -18,8 +18,8 @@ router.get('/get', async (req, res) => {
 router.get('/getId/:id', async (req, res) => {
     const employeeId = parseInt(req.params.id);
     try {
-        const connection = await dbConnection(); // Assuming dbConnection returns a promise resolving to a database connection
-        const [rows, fields] = await connection.query('SELECT * FROM employees WHERE id = ?', [employeeId]);
+        const connection = await dbConnection; // Assuming dbConnection returns a promise resolving to a database connection
+        const [rows, fields] = await connection.promise().query('SELECT * FROM employees WHERE id = ?', [employeeId]);
 
         if (rows.length === 0) {
             res.status(404).json({ message: 'Employee not found' });
@@ -36,8 +36,8 @@ router.get('/getId/:id', async (req, res) => {
 router.post('/add', async (req, res) => {
     const { name, position } = req.body;
     try {
-        const connection = await dbConnection(); // Assuming dbConnection returns a promise resolving to a database connection
-        const [result] = await connection.query('INSERT INTO employees (name, position) VALUES (?, ?)', [name, position]);
+        const connection = await dbConnection;
+        const [result] = await connection.promise().query('INSERT INTO employees (name, position) VALUES (?, ?)', [name, position]);
 
         const newEmployee = {
             id: result.insertId,
@@ -57,8 +57,8 @@ router.put('/update/:id', async (req, res) => {
     const employeeId = parseInt(req.params.id);
     const { name, position } = req.body;
     try {
-        const connection = await dbConnection(); // Assuming dbConnection returns a promise resolving to a database connection
-        const [result] = await connection.query('UPDATE employees SET name = ?, position = ? WHERE id = ?', [name, position, employeeId]);
+        const connection = await dbConnection; // Assuming dbConnection returns a promise resolving to a database connection
+        const [result] = await connection.promise().query('UPDATE employees SET name = ?, position = ? WHERE id = ?', [name, position, employeeId]);
 
         if (result.affectedRows === 0) {
             res.status(404).json({ message: 'Employee not found' });
@@ -75,8 +75,8 @@ router.put('/update/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
     const employeeId = parseInt(req.params.id);
     try {
-        const connection = await dbConnection(); // Assuming dbConnection returns a promise resolving to a database connection
-        const [result] = await connection.query('DELETE FROM employees WHERE id = ?', [employeeId]);
+        const connection = await dbConnection; // Assuming dbConnection returns a promise resolving to a database connection
+        const [result] = await connection.promise().query('DELETE FROM employees WHERE id = ?', [employeeId]);
 
         if (result.affectedRows === 0) {
             res.status(404).json({ message: 'Employee not found' });
