@@ -7,6 +7,7 @@ const dbConnection = require('../db/dbConnection');
 
 const router = express.Router();
 
+
 router.post('/signup', async (req, res) => {
     const { username, password, role } = req.body;
 

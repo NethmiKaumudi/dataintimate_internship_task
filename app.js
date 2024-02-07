@@ -8,10 +8,12 @@ const dbConnection = require('./db/dbConnection');
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var employeeRouter = require('./routes/employee');
+const auth = require('./middleware/auth');
 
 var app = express();
 
 // view engine setup
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -23,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-app.use('/employee', employeeRouter);
+app.use('/employee', auth, employeeRouter);
 
 
 // catch 404 and forward to error handler
