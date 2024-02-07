@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const dbConnection = require('../db/dbConnection');
+const jwt = require('jsonwebtoken');
 
 // Get all employees
 router.get('/get', async (req, res) => {
