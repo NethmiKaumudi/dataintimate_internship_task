@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 // Get all employees
 router.get('/get', async (req, res) => {
     try {
-        const connection = await dbConnection; // Assuming dbConnection returns a promise resolving to a database connection
+        const connection = await dbConnection;
         const [rows, fields] = await connection.promise().query('SELECT * FROM employees');
         res.json(rows);
     } catch (error) {
@@ -19,7 +19,7 @@ router.get('/get', async (req, res) => {
 router.get('/getId/:id', async (req, res) => {
     const employeeId = parseInt(req.params.id);
     try {
-        const connection = await dbConnection; // Assuming dbConnection returns a promise resolving to a database connection
+        const connection = await dbConnection;
         const [rows, fields] = await connection.promise().query('SELECT * FROM employees WHERE id = ?', [employeeId]);
 
         if (rows.length === 0) {
@@ -58,7 +58,7 @@ router.put('/update/:id', async (req, res) => {
     const employeeId = parseInt(req.params.id);
     const { name, position } = req.body;
     try {
-        const connection = await dbConnection; // Assuming dbConnection returns a promise resolving to a database connection
+        const connection = await dbConnection;
         const [result] = await connection.promise().query('UPDATE employees SET name = ?, position = ? WHERE id = ?', [name, position, employeeId]);
 
         if (result.affectedRows === 0) {
@@ -76,7 +76,7 @@ router.put('/update/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
     const employeeId = parseInt(req.params.id);
     try {
-        const connection = await dbConnection; // Assuming dbConnection returns a promise resolving to a database connection
+        const connection = await dbConnection;
         const [result] = await connection.promise().query('DELETE FROM employees WHERE id = ?', [employeeId]);
 
         if (result.affectedRows === 0) {
